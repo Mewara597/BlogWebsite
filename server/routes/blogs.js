@@ -79,7 +79,7 @@ router.delete('/:id', auth, async (req, res) => {
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
     if (blog.author.toString() !== req.user.id) return res.status(403).json({ message: 'Not authorized' });
 
-    await blog.remove();
+    await Blog.findByIdAndDelete(req.params.id);
     res.json({ message: 'Blog removed' });
   } catch (error) {
     console.error(error.message);
